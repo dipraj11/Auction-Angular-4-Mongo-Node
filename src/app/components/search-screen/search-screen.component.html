@@ -1,15 +1,23 @@
+<h1 style="text-align: center">Player Search Page</h1>
 <clr-datagrid>
-  <clr-dg-column>User ID</clr-dg-column>
-  <clr-dg-column>Name</clr-dg-column>
-  <clr-dg-column>Creation date</clr-dg-column>
-  <clr-dg-column>Favorite color</clr-dg-column>
+  <clr-dg-column *ngFor="let head of nHeads; let i = index" [clrDgField]="keys[i]">{{head}}</clr-dg-column>
+  <!-- <clr-dg-column>Batting</clr-dg-column>
+  <clr-dg-column>Bowling</clr-dg-column>
+  <clr-dg-column>Fielding</clr-dg-column>
+  <clr-dg-column>Base Price</clr-dg-column>
+  <clr-dg-column>Status</clr-dg-column>
+  <clr-dg-column>Team</clr-dg-column> -->
 
-  <clr-dg-row *ngFor="let user of users">
-      <clr-dg-cell>{{user.id}}</clr-dg-cell>
-      <clr-dg-cell>{{user.name}}</clr-dg-cell>
-      <clr-dg-cell>{{user.creation | date}}</clr-dg-cell>
-      <clr-dg-cell>{{user.color}}</clr-dg-cell>
+  <clr-dg-row *clrDgItems="let player of players">
+    <clr-dg-cell>{{player.name}}</clr-dg-cell>
+    <clr-dg-cell>{{player.batting}}</clr-dg-cell>
+    <clr-dg-cell>{{player.bowling}}</clr-dg-cell>
+    <clr-dg-cell>{{player.fielding}}</clr-dg-cell>
+    <clr-dg-cell>{{player.basePrice}} $</clr-dg-cell>
+    <clr-dg-cell>{{soldStatus[player.sold]}}</clr-dg-cell>
+    <clr-dg-cell>{{player.team}}</clr-dg-cell>
   </clr-dg-row>
 
-  <clr-dg-footer>{{users.length}} users</clr-dg-footer>
+  <clr-dg-placeholder>We couldn't find any entries!</clr-dg-placeholder>
+  <clr-dg-footer>{{players.length}} players</clr-dg-footer>
 </clr-datagrid>
