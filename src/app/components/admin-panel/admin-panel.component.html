@@ -1,3 +1,67 @@
-<p>
-  admin-panel works!
-</p>
+<div class="main-container">
+  <div class="content-container">
+
+    <div class="content-area">
+      <div class="box">
+
+        <div class="row">
+          <!-- image -->
+          <div class="col-md-2 wrapper">
+            <div class="player-image">
+              <!-- <img src=""> -->
+            </div>
+          </div>
+          <!-- details -->
+          <div class="col-md-4 wrapper">
+            <div class="row">
+              <!-- name -->
+              <div class="col-md-12">
+                <h2 class="first-name intro">Shishir</h2>
+                <h4 class="last-name intro-inline">Tiwari</h4>
+              </div>
+            </div>
+            <div class="row">
+              <!-- batting -->
+              <div class="col-md-4 skill-box">
+                <h6>Batting</h6>
+                <h5 class="intro skills">74</h5>
+              </div>
+              <!-- bowling -->
+              <div class="col-md-4 skill-box">
+                <h6>Bowling</h6>
+                <h5 class="intro skills">74</h5>
+              </div>
+              <!-- fielding -->
+              <div class="col-md-4 skill-box">
+                <h6>Fielding</h6>
+                <h5 class="intro skills">74</h5>
+              </div>
+            </div>
+          </div>
+          <!-- sold for/timer -->
+          <div class="col-md-2 wrapper">
+            <ng-container *ngIf="newBid">
+              <button class="btn btn-primary" (click)="startBid()">Start Bid</button>
+            </ng-container>
+
+            <ng-container *ngIf="!newBid">
+              <h6 class="intro-inline">Time Left</h6>
+              <h5 class="intro">{{timeLeft | async}}s</h5>
+            </ng-container>
+          </div>
+          <!-- sold to/latest bid -->
+          <div class="col-md-4 wrapper">
+            <ng-container *ngIf="!newBid">
+              <h6 class="intro-inline">Highest Bid</h6>
+              <h5 class="intro">$50</h5>
+            </ng-container>
+            <ng-container *ngIf="bidSealed">
+              <h6 class="intro-inline">Sold to</h6>
+              <h5 class="intro">Shishir Ke Deewane</h5>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
