@@ -1,3 +1,89 @@
-<p>
-  owner-panel works!
-</p>
+<div class="main-container">
+  <div class="content-container">
+
+    <div class="content-area">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="team-details">
+            <div class="row">
+              <h2>Team Details</h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Batting</th>
+                    <th>Bowling</th>
+                    <th>Fielding</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let player of players">
+                    <td>{{player.name}}</td>
+                    <td>{{player.batting}}</td>
+                    <td>{{player.bowling}}</td>
+                    <td>{{player.fielding}}</td>
+                    <td>{{player.price}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="on-bid">
+            <div class="row">
+              <h2>Currently on bid</h2>
+              <div class="current-player">
+
+              </div>
+            </div>
+          </div>
+          <div class="money-row">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="balance-box">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Balance</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>$2000</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+
+              </div>
+              <div class="col-md-4">
+                <div class="bidding-price-box">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>Bidding Price</h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <input type="text" placeholder="in USD ($)">
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary btn-block">BID!</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
