@@ -29,6 +29,10 @@ export class RegisterScreenComponent implements OnInit {
 
   registerTeam() {
     console.log(this.registerForm.value)
+    this.apiCall.registerTeam(this.registerForm.value).subscribe((data)=>{
+      console.log(data);
+      
+    })
   }
 
 }

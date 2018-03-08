@@ -5,6 +5,9 @@ import { HttpClient, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, Ht
 @Injectable()
 export class ApiService {
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
 
+  registerTeam(params){
+    return this.http.post('/register', params)
+  }
 }

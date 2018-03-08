@@ -16,10 +16,7 @@ const appRoutes: Routes = [
     { path: 'admin', component: AdminPanelComponent, pathMatch: 'full' },
     { path: 'owner', component: OwnerPanelComponent, pathMatch: 'full' },
     { path: 'search', component: SearchScreenComponent },
-    { path: 'register', component: RegisterScreenComponent }
-
-
-
+    { path: 'register', component: RegisterScreenComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

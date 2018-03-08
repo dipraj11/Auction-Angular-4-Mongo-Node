@@ -26,8 +26,7 @@ const connectionMySQL = mysql.createConnection({
 connectionMySQL.connect((err) => {
   if (err)
     console.log(err);
-  else
-   {
+  else {
     console.log('Connected');
     // connectionMySQL.query("SHOW TABLES", function (err, result) {
     //   if (err) throw err;
@@ -49,14 +48,15 @@ connectionMySQL.connect((err) => {
 
 
 const app = express();
+// Parsers for POST data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors())
 // view engine setup
 // app.set('views', path.join(__dirname, './server/views'));
 // app.set('view engine', 'jade');
 
-// Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.use(expressValidator());
 app.use(cookieParser());
@@ -65,44 +65,44 @@ app.use(cookieParser());
 mongoose.connect('mongodb://35.192.54.134:4300/login')
 const db = mongoose.connection
 
-// app.use(expressSession({
-//   secret:'max',
-//   saveUninitialized: true,
-//   resave: true,
-//   store: new MongoStore({
-//       mongooseConnection: db
-//     })
-// }))
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(expressSession({
+  secret: 'max',
+  saveUninitialized: true,
+  resave: true,
+  store: new MongoStore({
+    mongooseConnection: db
+  })
+}))
+app.use(passport.initialize());
+app.use(passport.session());
 
 
-// const Account = require('./server/models/account')
-// passport.use(new LocalStrategy(Account.authenticate()))
+const Account = require('./server/models/account')
+passport.use(new LocalStrategy(Account.authenticate()))
 
-// // used to serialize the user
-// passport.serializeUser(function(user, done) {
-//   user = user.toObject()
-//   if(user.userid < 10){
-//      user.userid =  '0' + user.userid.toString()
-//   }else{
-//       user.userid = user.userid.toString()
-//   }
-//   done(null, user);
-// });
+// used to serialize the user
+passport.serializeUser(function (user, done) {
+  user = user.toObject()
+  if (user.id < 10) {
+    user.id = '0' + user.id.toString()
+  } else {
+    user.id = user.id.toString()
+  }
+  done(null, user);
+});
 
-// // used to deserialize the user
-// passport.deserializeUser(function(id, done) {
-//   Account.findById(id, function(err, user) {
-//       user =  user.toObject()
-//       if(user.userid < 10){
-//           user.userid = '0' + user.userid.toString()
-//       }else{
-//          user.userid = user.userid.toString()
-//       }
-//       done(err, user);
-//   });
-// });
+// used to deserialize the user
+passport.deserializeUser(function (id, done) {
+  Account.findById(id, function (err, user) {
+    user = user.toObject()
+    if (user.id < 10) {
+      user.id = '0' + user.id.toString()
+    } else {
+      user.id = user.id.toString()
+    }
+    done(err, user);
+  });
+});
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -113,6 +113,22 @@ app.set('trust proxy', 'loopback');
 
 // Set our api routes
 // app.use('/home-stats', home);
+app.post('/register', function (req, res) {
+  let type = ''
+  if (req.body.teamName == 'admin') {
+    type = 'admin'
+  } else {
+    type = 'owner'
+  }
+  Account.register(new Account({ username: req.body.teamName, accounttype: type }), req.body.password, function (err, account) {
+    if (err) {
+      console.log(err)
+    
+      return res.send('ho gaya');
+    }
+  });
+
+});
 
 
 
