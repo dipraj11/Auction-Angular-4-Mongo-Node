@@ -16,6 +16,7 @@ import { OwnerPanelComponent } from './components/owner-panel/owner-panel.compon
 import {Routings} from './app.routing';
 import { RegisterScreenComponent } from './components/register-screen/register-screen.component'
 import { ApiService } from './services/api.service';
+import { Globals } from './globals';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { ApiService } from './services/api.service';
     Routings
     // BootstrapModule
   ],
-  providers: [ApiService],
+  providers: [ApiService, Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

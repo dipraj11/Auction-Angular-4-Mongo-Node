@@ -72,7 +72,7 @@ h1,h2,h3,h4,h5,h6
     width: 100%
 
 .col-md-6
-    border: 1px solid red
+    // border: 1px solid red
     display: flex
     flex-direction: column
     justify-content: space-evenly
@@ -90,7 +90,13 @@ h1,h2,h3,h4,h5,h6
 
 .money-row
     width: 100%
-.team-details, .on-bid,.balance-box, .bidding-price-box
+    height: 200px
+    display: flex
+    justify-content: center
+    // border: 1px solid red
+    align-items: center
+
+.team-details, .on-bid,.balance-box, .bidding-price-box, .timer-box
     background: white
     padding: 1.5em
     width: 100%
@@ -124,7 +130,7 @@ input[type="text"]
             flex-direction: column
             align-items: center 
             .player-name
-                margin-left: 0.5em
+                margin-left: 0.1em
                 text-align: left   
                 font-size: 1.8em
                 font-variant: small-caps
@@ -140,3 +146,9 @@ input[type="text"]
 
 .characteristics
     margin-bottom: 0 !important
+
+.balance-box, .bidding-price-box, .timer-box
+    min-height: 175px
+    display: flex
+    flex-direction: column
+    justify-content: center

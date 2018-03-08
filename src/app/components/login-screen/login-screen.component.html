@@ -6,13 +6,13 @@
         <div class="header-image">
 
         </div>
-        <form class="form">
+        <form class="form" [formGroup]="loginForm">
 
-          <input type="text" placeholder="Enter username" class="">
+          <input type="text" placeholder="Enter User Name/Team Name" class="" formControlName="username">
 
-          <input type="password" placeholder="Enter password" class="">
+          <input type="password" placeholder="Enter password" class="" formControlName="password">
 
-          <button class="btn btn-primary btn-block">Log in</button>
+          <button class="btn btn-primary btn-block" (click)="login()">Log in</button>
         </form>
       </div>
 
