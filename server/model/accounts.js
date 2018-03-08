@@ -7,7 +7,8 @@ var Account = new Schema({
         type: number
     },
     teamname: {
-        type: String
+        type: String,
+        required: true
     }, 
     accounttype:{
         type: String
@@ -15,9 +16,6 @@ var Account = new Schema({
     username: {
         type: String,
         required: true
-    },
-    email:{
-        type: String
     },
     password: String
 },{

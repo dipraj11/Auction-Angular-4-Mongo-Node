@@ -29,7 +29,7 @@ connectionMySQL.connect((err) => {
   else
    {
     console.log('Connected');
-    // connectionMySQL.query("SHOW DATABASES", function (err, result) {
+    // connectionMySQL.query("SHOW TABLES", function (err, result) {
     //   if (err) throw err;
     //   console.log("Database created");
     // });
@@ -62,8 +62,8 @@ app.use(expressValidator());
 app.use(cookieParser());
 
 // //Login Logic
-// mongoose.connect('mongodb://35.192.54.134:4300/login')
-// const db = mongoose.connection
+mongoose.connect('mongodb://35.192.54.134:4300/login')
+const db = mongoose.connection
 
 // app.use(expressSession({
 //   secret:'max',

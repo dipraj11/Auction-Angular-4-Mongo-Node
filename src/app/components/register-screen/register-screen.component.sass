@@ -1,0 +1,63 @@
+
+    
+    
+.main-container
+    background-image: url('../../../assets/bg-login.jpg')
+    background-size: cover
+    background-repeat: no-repeat
+    // background-color: green
+
+.wrapper-login
+    background-color: white
+    width: 300px
+    height: 425px
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: center
+    padding: 20px 10px
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3)
+.header-image
+    width: 177px
+    height: 123px
+    background: 
+        image: url('../../../assets/LOGO2.png')
+        position: center center
+        size: contain
+        repeat: no-repeat
+    
+.content-area
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+.form
+    display: flex
+    justify-content: space-around
+    
+    flex-direction: column
+    height: 200px
+    width: 75%
+    // border: 1px solid #aeaeae
+.blur
+    -webkit-animation: blur 2s 1
+    animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53)
+.translate
+    // -webkit-animation: translate 0.5s 1
+    // animation-timing-function: cubic-bezier(0.64, 0.57, 0.67, 1.53)
+
+
+@-webkit-keyframes translate
+    0%
+        -webkit-transform: translateX(-200%)
+    100%
+        -webkit-transform: translateX(0)
+
+@-webkit-keyframes blur
+  0%
+    -webkit-filter: blur(100px)
+
+  100%
+    -webkit-filter: blur(0px)
+
+    
