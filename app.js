@@ -8,12 +8,40 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 var expressValidator = require('express-validator');
 const expressSession = require('express-session');
-const MongoStore  = require('connect-mongo')(expressSession);
+const MongoStore = require('connect-mongo')(expressSession);
 const cors = require('cors')
 const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
+const mysql = require('mysql')
+
+const connectionMySQL = mysql.createConnection({
+  host: '35.225.36.190',
+  user: 'root',
+  password: 'Quant1ph1'
+})
+
+
+connectionMySQL.connect((err) => {
+  if (err)
+    console.log(err);
+  else
+   {
+    console.log('Connected');
+    // connectionMySQL.query("SHOW DATABASES", function (err, result) {
+    //   if (err) throw err;
+    //   console.log("Database created");
+    // });
+  }
+
+})
+
+// con.connect(function (err) {
+//   if (err) throw err;
+//   console.log("Connected!");
+
+// });
 
 
 // // Get our API routes
@@ -33,20 +61,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
 
-//Login Logic
-mongoose.connect('mongodb://35.193.228.112:8080/login')
-const db = mongoose.connection
+// //Login Logic
+// mongoose.connect('mongodb://35.192.54.134:4300/login')
+// const db = mongoose.connection
 
-app.use(expressSession({
-  secret:'max',
-  saveUninitialized: true,
-  resave: true,
-  store: new MongoStore({
-      mongooseConnection: db
-    })
-}))
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(expressSession({
+//   secret:'max',
+//   saveUninitialized: true,
+//   resave: true,
+//   store: new MongoStore({
+//       mongooseConnection: db
+//     })
+// }))
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
 // const Account = require('./server/models/account')
@@ -96,7 +124,7 @@ app.get('*', (req, res) => {
 /**
  * Get port from environment and store in Express.
  */
- const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 app.set('port', port);
 
@@ -108,7 +136,7 @@ app.set('port', port);
 const server = http.createServer(app);
 
 
-server.setTimeout(120*60*1000)
+server.setTimeout(120 * 60 * 1000)
 
 /**
  * Listen on provided port, on all network interfaces.
