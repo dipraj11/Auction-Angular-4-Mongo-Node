@@ -17,6 +17,7 @@ import {Routings} from './app.routing';
 import { RegisterScreenComponent } from './components/register-screen/register-screen.component'
 import { ApiService } from './services/api.service';
 import { Globals } from './globals';
+import { DisplayScreenComponent } from './components/display-screen/display-screen.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { Globals } from './globals';
     LoginScreenComponent,
     AdminPanelComponent,
     OwnerPanelComponent,
-    RegisterScreenComponent
+    RegisterScreenComponent,
+    DisplayScreenComponent
   ],
   imports: [
     BrowserModule,

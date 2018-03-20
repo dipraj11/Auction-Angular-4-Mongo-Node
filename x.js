@@ -14,10 +14,10 @@ connectionMySQL.connect((err) => {
         console.log(err);
     else {
         console.log('Connected');
-        // connectionMySQL.query("SHOW DATABASES", function (err, result) {
-        //     if (err) throw err;
-        //     console.log("Database created");
-        // });
+        connectionMySQL.query("SHOW DATABASES", function (err, result) {
+            if (err) throw err;
+            console.log(result);
+        });
     }
 
 });

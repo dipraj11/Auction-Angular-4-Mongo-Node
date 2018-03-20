@@ -13,37 +13,6 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
-const mysql = require('mysql')
-
-
-
-// const connectionMySQL = mysql.createConnection({
-//   host: '35.225.36.190',
-//   user: 'root',
-//   password: 'Quant1ph1'
-// })
-
-
-// connectionMySQL.connect((err) => {
-//   if (err)
-//     console.log(err);
-//   else {
-//     console.log('Connected');
-// connectionMySQL.query("SHOW TABLES", function (err, result) {
-//   if (err) throw err;
-//   console.log("Database created");
-// });
-//   }
-
-// })
-// con.connect(function (err) {
-//   if (err) throw err;
-//   console.log("Connected!");
-
-// });
-
-
-
 
 player = [{
     name: 'Shishir Tiwari',
@@ -167,8 +136,8 @@ app.use(cors())
 app.use(expressValidator());
 app.use(cookieParser());
 
-// //Login Logic
-mongoose.connect('mongodb://35.192.54.134:4300/login')
+//Login Logic
+mongoose.connect('mongodb://35.192.54.134:4300/qcb-data')
 const db = mongoose.connection
 
 app.use(expressSession({
@@ -229,6 +198,13 @@ app.post('/register', function (req, res) {
 
 });
 
+
+const Player = require('./server/models/players')
+
+Player.find({}, function(err,data) {
+  console.log(data);
+  
+})
 //for initial team data
 app.get('/team-details', (req, res, next) => {
   let jsonToSend = []

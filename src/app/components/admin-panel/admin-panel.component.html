@@ -43,7 +43,7 @@
 
             <ng-container *ngIf="!newBid">
               <h6 class="intro-inline">Time Left</h6>
-              <h5 class="intro">{{timeLeft | async}}s</h5>
+              <h5 class="intro">{{timeLeft}}s</h5>
             </ng-container>
           </div>
           <!-- sold to/latest bid -->
@@ -51,7 +51,8 @@
             <ng-container *ngIf="!newBid">
               <h6 class="intro-inline">Highest Bid</h6>
               <h5 class="intro">${{currBidAmount}}</h5>
-              <h6 class="intro-inline">Highest Bidder</h6>
+              <h6 class="intro-inline" >Highest Bidder</h6>
+              
               <h5 class="intro">{{highestBidder}}</h5>
             </ng-container>
             <!-- <ng-container *ngIf="bidSealed">

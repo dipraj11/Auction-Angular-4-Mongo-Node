@@ -57,7 +57,7 @@ export class OwnerPanelComponent implements OnInit {
 
   teamData = {}
   @ViewChild('bidAmount') bidAmountInput
-  currBidAmount
+  currBidAmount: number
 
 
 
@@ -96,12 +96,14 @@ export class OwnerPanelComponent implements OnInit {
   }
 
   bid() {
-
-    let bidAmount = this.bidAmountInput.nativeElement.value
+    
+    
+    let bidAmount = parseInt(this.bidAmountInput.nativeElement.value)
+    // console.log(`Current bid amount is ${this.currBidAmount} & User bid amount is ${bidAmount}`);
     if (bidAmount <= this.currBidAmount) {
       alert('Your Bid Amount should be more than the current bid amount')
     } else {
-      console.log(`username is ${this.globals.username}`);
+      // console.log(`username is ${this.globals.username}`);
       this.socket.emit('bid', { "amount": this.bidAmountInput.nativeElement.value, "teamName": this.globals.username })
     }
 

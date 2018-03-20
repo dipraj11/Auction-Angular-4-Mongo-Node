@@ -10,9 +10,10 @@ import { ApiService } from '../../services/api.service'
 })
 export class AdminPanelComponent implements OnInit {
 
+  interval
   highestBidder: any;
-  timeLeft
-  baseTime = 16
+  timeLeft = 15
+
   bidSealed: boolean = true
   playerData = {
     name: '',
@@ -25,16 +26,17 @@ export class AdminPanelComponent implements OnInit {
     imagePath: ''
   }
   newBid: boolean
-  
+
   //player data
   firstName: string
   lastName: string
-  
+
   currBidAmount: number
 
   socket = io('http://localhost:4000');
-  constructor(public api: ApiService) { }
 
+  constructor(public api: ApiService) { }
+  
   ngOnInit() {
     this.newBid = true
 
@@ -45,7 +47,8 @@ export class AdminPanelComponent implements OnInit {
       this.currBidAmount = data.amount
       this.highestBidder = data.teamName
       //reset timer
-      this.baseTime = 16
+      this.timeLeft = 15
+      
     })
 
     //after bid is complete
@@ -76,11 +79,17 @@ export class AdminPanelComponent implements OnInit {
 
   startBid() {
     this.newBid = false
-    this.timeLeft = timer(0, 1000).pipe(take(this.baseTime), map(() => --this.baseTime))
+    this.interval = setInterval(() => {
+      if (this.timeLeft == 0) {
+        clearInterval(this.interval)
+      } else {
+        this.timeLeft--
+      }
+
+    }, 1000)
   }
 
   sold() {
     this.socket.emit('sold', { amount: this.currBidAmount, teamName: this.highestBidder })
   }
-
 }
