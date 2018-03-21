@@ -11,6 +11,9 @@ export class RegisterScreenComponent implements OnInit {
   registerForm: FormGroup
   teamName: FormControl
   password: FormControl
+  ownerName:FormControl
+  captainName:FormControl
+
 
 
   constructor(public apiCall: ApiService, public formBuilder: FormBuilder) { }
@@ -20,6 +23,8 @@ export class RegisterScreenComponent implements OnInit {
 
     this.password = new FormControl('', Validators.required)
     this.teamName = new FormControl('', Validators.required)
+    this.ownerName = new FormControl('', Validators.required)
+    this.captainName = new FormControl('', Validators.required)
 
     this.registerForm = this.formBuilder.group({
       teamName: this.teamName,

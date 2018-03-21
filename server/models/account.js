@@ -10,8 +10,13 @@ var Account = new Schema({
     accounttype:{
         type: String
     },
-    password: String
-},{
+    password: String,
+    teamName:String,
+    teamLogo:String,
+    ownerName:String,
+    captainName:String
+}
+,{
   timestamps: true
 });
 

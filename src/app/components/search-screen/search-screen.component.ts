@@ -9,7 +9,7 @@ import { ApiService } from '../../services/api.service';
 
 export class SearchScreenComponent implements OnInit {
 
-  players: Object[] = []
+  players
   nHeads: any = []
   enums: any = {
     name: 'Name',
@@ -31,14 +31,14 @@ export class SearchScreenComponent implements OnInit {
   ngOnInit() {
     this.api.getAllPlayers().subscribe((data) => {
       console.log(data);
-      this.players = <Object[]>data
+      this.players = data
+      this.keys = Object.keys(this.players[0])
+      console.log(this.keys)
+      for (let i = 0; i < this.keys.length; i++) {
+        this.nHeads[i] = this.enums[this.keys[i]]
+      }
 
     })
-
-    this.keys = Object.keys(this.players[0])
-    for (let i = 0; i < this.keys.length; i++) {
-      this.nHeads[i] = this.enums[this.keys[i]]
-    }
   }
 
 }
