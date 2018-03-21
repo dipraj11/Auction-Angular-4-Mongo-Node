@@ -1,3 +1,5 @@
+import { body } from 'express-validator/check';
+
 // Get dependencies
 const express = require('express');
 const path = require('path');
@@ -158,9 +160,9 @@ app.post('/register', function (req, res) {
   if (req.body.teamName == 'admin') {
     type = 'admin'
   } else {
-    type = req.body.teamName;
+    type = 'team';
   }
-  Account.register(new Account({ username: req.body.teamName, accounttype: type }), req.body.password, function (err, account) {
+  Account.register(new Account({ username: req.body.teamName, accounttype: type ,ownerName:req.body.ownerName,captainName:req.body.captainName,teamName:req.body.teamName}), req.body.password, function (err, account) {
     if (err) {
       console.log(err)
 
@@ -193,6 +195,48 @@ app.get('/get-all-players', (req, res, next) => {
   })
   
 })
+
+app.get('/get-player-name', (req, res, next) => {
+  arrNames = [];
+  Player.find({},{name:true,_id:false}, function(err,playersDetails) {
+    if(err){
+      console.log(err)
+      res.send([]);
+    }
+    //console.log(playersDetails);
+
+    playersDetails.forEach(element => {
+      arrNames.push(element.name)
+    });
+    res.json(arrNames);
+  })
+  
+})
+
+
+app.post('/sold-player', (req, res, next) => {
+  Player.findOneAndUpdate({name:req.body.playerName},{$set:{sold:true,soldAmount:req.body.bidAmount,team:req.body.teamName}}, function(err,playersDetails) {
+    if(err){
+      console.log(err)
+      res.send([]);
+    }
+    //console.log(playersDetails);
+
+    Account.find({teamName:req.body.teamName},(err,data)=>{
+      data.balance = data.balance - req.body.bidAmount;
+      Account.findOneAndUpdate({teamName:req.body.teamName},{$set:{balance:data.balance}},(err,data) => {
+        res.send('Done');
+      })
+    })
+
+
+
+  })
+})
+
+
+
+
 
 
 

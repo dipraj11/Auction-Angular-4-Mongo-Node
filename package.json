@@ -24,6 +24,7 @@
     "@clr/angular": "^0.11.6",
     "@clr/icons": "^0.11.6",
     "@clr/ui": "^0.11.6",
+    "@ngui/auto-complete": "^0.16.1",
     "@webcomponents/custom-elements": "^1.0.8",
     "bootstrap": "^4.0.0",
     "connect-mongo": "^2.0.1",

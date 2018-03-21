@@ -16,7 +16,7 @@ export class SearchScreenComponent implements OnInit {
     team: 'Team',
     sold: 'Status',
     basePrice: 'Base Price',
-    specialty: 'Specialty',
+    speciality: 'Speciality',
     category: 'Category',
     gender: 'Gender',
     soldAmount: 'Amount Sold For'
@@ -32,18 +32,15 @@ export class SearchScreenComponent implements OnInit {
     this.api.getAllPlayers().subscribe((data) => {
       console.log(data);
       this.players = data
+
       this.keys = Object.keys(this.players[0])
-      console.log(this.keys)
+      console.log(this.keys);
+
       for (let i = 0; i < this.keys.length; i++) {
         this.nHeads[i] = this.enums[this.keys[i]]
       }
     })
-    this.keys = Object.keys(this.players[0])
-    console.log(this.keys);
-    
-    for (let i = 0; i < this.keys.length; i++) {
-      this.nHeads[i] = this.enums[this.keys[i]]
-    }
   }
 
 }
+

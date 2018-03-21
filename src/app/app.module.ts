@@ -1,12 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular'
 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SearchScreenComponent } from './components/search-screen/search-screen.component';
@@ -21,6 +20,8 @@ import { ApiService } from './services/api.service';
 import { Globals } from './globals';
 import { DisplayScreenComponent } from './components/display-screen/display-screen.component';
 
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { DisplayScreenComponent } from './components/display-screen/display-scre
     AdminPanelComponent,
     OwnerPanelComponent,
     RegisterScreenComponent,
-    DisplayScreenComponent
+    DisplayScreenComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -39,8 +41,9 @@ import { DisplayScreenComponent } from './components/display-screen/display-scre
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    NguiAutoCompleteModule,
     Routings
-    
+
     // BootstrapModule
   ],
   providers: [ApiService, Globals],

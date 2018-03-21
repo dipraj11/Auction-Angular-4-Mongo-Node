@@ -1,23 +1,20 @@
 <h1 style="text-align: center">Player Search Page</h1>
+<h3 *ngIf="players"> {{players.length}} players </h3>
 <clr-datagrid>
   <clr-dg-column *ngFor="let head of nHeads; let i = index" [clrDgField]="keys[i]">{{head}}</clr-dg-column>
-  <!-- <clr-dg-column>Batting</clr-dg-column>
-  <clr-dg-column>Bowling</clr-dg-column>
-  <clr-dg-column>Fielding</clr-dg-column>
-  <clr-dg-column>Base Price</clr-dg-column>
-  <clr-dg-column>Status</clr-dg-column>
-  <clr-dg-column>Team</clr-dg-column> -->
+
 
   <clr-dg-row *clrDgItems="let player of players">
     <clr-dg-cell>{{player.name}}</clr-dg-cell>
-    <clr-dg-cell>{{player.batting}}</clr-dg-cell>
-    <clr-dg-cell>{{player.bowling}}</clr-dg-cell>
-    <clr-dg-cell>{{player.fielding}}</clr-dg-cell>
-    <clr-dg-cell>{{player.basePrice}} $</clr-dg-cell>
+    <clr-dg-cell>{{player.speciality}}</clr-dg-cell>
+    <clr-dg-cell>{{player.basePrice}}$</clr-dg-cell>
+    <clr-dg-cell>{{player.category}}</clr-dg-cell>
+    <clr-dg-cell>{{player.gender}} </clr-dg-cell>
     <clr-dg-cell>{{soldStatus[player.sold]}}</clr-dg-cell>
     <clr-dg-cell>{{player.team}}</clr-dg-cell>
+    <clr-dg-cell>{{player.soldAmount}}</clr-dg-cell>
   </clr-dg-row>
 
   <clr-dg-placeholder>We couldn't find any entries!</clr-dg-placeholder>
-  <clr-dg-footer>{{players.length}} players</clr-dg-footer>
+  <!-- <clr-dg-footer *ngIf="players.length">{{players.length}} players</clr-dg-footer> -->
 </clr-datagrid>

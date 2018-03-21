@@ -14,7 +14,8 @@ var Account = new Schema({
     teamName:String,
     teamLogo:String,
     ownerName:String,
-    captainName:String
+    captainName:String,
+    balance:Number
 }
 ,{
   timestamps: true
