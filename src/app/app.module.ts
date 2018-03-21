@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import {ClarityModule} from '@clr/angular'
+import { ClarityModule } from '@clr/angular'
 
 
 import { AppComponent } from './app.component';
@@ -13,7 +15,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { OwnerPanelComponent } from './components/owner-panel/owner-panel.component';
 
 //routing
-import {Routings} from './app.routing';
+import { Routings } from './app.routing';
 import { RegisterScreenComponent } from './components/register-screen/register-screen.component'
 import { ApiService } from './services/api.service';
 import { Globals } from './globals';
@@ -22,7 +24,7 @@ import { DisplayScreenComponent } from './components/display-screen/display-scre
 @NgModule({
   declarations: [
     AppComponent,
-    
+
     SearchScreenComponent,
     LoginScreenComponent,
     AdminPanelComponent,
@@ -32,11 +34,13 @@ import { DisplayScreenComponent } from './components/display-screen/display-scre
   ],
   imports: [
     BrowserModule,
-    ClarityModule, 
+    BrowserAnimationsModule,
+    ClarityModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
     Routings
+    
     // BootstrapModule
   ],
   providers: [ApiService, Globals],

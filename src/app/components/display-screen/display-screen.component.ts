@@ -3,17 +3,38 @@ import { timer } from 'rxjs/observable/timer'
 import { take, map } from 'rxjs/operators'
 import * as io from "socket.io-client";
 import { ApiService } from '../../services/api.service'
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 @Component({
   selector: 'app-display-screen',
   templateUrl: './display-screen.component.html',
-  styleUrls: ['./display-screen.component.sass']
+  styleUrls: ['./display-screen.component.sass'],
+  animations: [
+    trigger('heroState', [
+      state('inactive', style({
+        backgroundColor: '#eee',
+        transform: 'scale(1)'
+      })),
+      state('active', style({
+        backgroundColor: '#cfd8dc',
+        transform: 'scale(1.1)'
+      })),
+      transition('inactive => active', animate('100ms ease-in')),
+      transition('active => inactive', animate('100ms ease-out'))
+    ])
+  ]
 })
 export class DisplayScreenComponent implements OnInit {
   interval
   highestBidder: any;
   timeLeft = 15
-
+  activeState = 'inactive'
   bidSealed: boolean = true
   playerData = {
     name: '',
