@@ -1,12 +1,7 @@
 <h1 style="text-align: center">Player Search Page</h1>
 <clr-datagrid>
   <clr-dg-column *ngFor="let head of nHeads; let i = index" [clrDgField]="keys[i]">{{head}}</clr-dg-column>
-  <!-- <clr-dg-column>Batting</clr-dg-column>
-  <clr-dg-column>Bowling</clr-dg-column>
-  <clr-dg-column>Fielding</clr-dg-column>
-  <clr-dg-column>Base Price</clr-dg-column>
-  <clr-dg-column>Status</clr-dg-column>
-  <clr-dg-column>Team</clr-dg-column> -->
+
 
   <clr-dg-row *clrDgItems="let player of players">
     <clr-dg-cell>{{player.name}}</clr-dg-cell>
