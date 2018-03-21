@@ -13,7 +13,7 @@ export class AdminPanelComponent implements OnInit {
   interval
   highestBidder: any;
   timeLeft = 15
-
+  playerNames
   bidSealed: boolean = true
   playerData = {
     name: '',
@@ -33,63 +33,68 @@ export class AdminPanelComponent implements OnInit {
 
   currBidAmount: number
 
-  socket = io('http://localhost:4000');
+  // socket = io('http://localhost:4000');
 
   constructor(public api: ApiService) { }
-  
-  ngOnInit() {
-    this.newBid = true
 
-    this.api.updateBidAmount().subscribe((data) => {
-      console.log(`Data from UpdateBidAmount Admin Side`);
+  ngOnInit() {
+    this.api.getPlayerNames().subscribe((data) => {
       console.log(data);
-      //set current bid & its bidder name
-      this.currBidAmount = data.amount
-      this.highestBidder = data.teamName
-      //reset timer
-      this.timeLeft = 15
-      
+
+      this.playerNames = data
     })
+    // this.newBid = true
+
+    // this.api.updateBidAmount().subscribe((data) => {
+    //   console.log(`Data from UpdateBidAmount Admin Side`);
+    //   console.log(data);
+    //   //set current bid & its bidder name
+    //   this.currBidAmount = data.amount
+    //   this.highestBidder = data.teamName
+    //   //reset timer
+    //   this.timeLeft = 15
+
+    // })
 
     //after bid is complete
-    this.api.updatePlayerInfo().subscribe((data) => {
-      console.log(data)
-      this.playerData = {
-        name: data["name"],
-        batting: data["batting"],
-        bowling: data["bowling"],
-        fielding: data["fielding"],
-        basePrice: data["basePrice"],
-        sold: data["sold"],
-        team: data["team"],
-        imagePath: data["imagePath"]
-      }
+    // this.api.updatePlayerInfo().subscribe((data) => {
+    //   console.log(data)
+    //   this.playerData = {
+    //     name: data["name"],
+    //     batting: data["batting"],
+    //     bowling: data["bowling"],
+    //     fielding: data["fielding"],
+    //     basePrice: data["basePrice"],
+    //     sold: data["sold"],
+    //     team: data["team"],
+    //     imagePath: data["imagePath"]
+    //   }
 
 
-      this.firstName = this.playerData.name.split(" ")[0]
-      this.lastName = this.playerData.name.split(" ")[1]
+    //   this.firstName = this.playerData.name.split(" ")[0]
+    //   this.lastName = this.playerData.name.split(" ")[1]
 
-      console.log(this.firstName);
-      console.log(this.lastName);
+    //   console.log(this.firstName);
+    //   console.log(this.lastName);
 
 
-    })
+    // })
 
   }
 
   startBid() {
-    this.newBid = false
-    this.interval = setInterval(() => {
-      if (this.timeLeft == 0) {
-        clearInterval(this.interval)
-      } else {
-        this.timeLeft--
-      }
+    // this.newBid = false
+    // this.interval = setInterval(() => {
+    //   if (this.timeLeft == 0) {
+    //     clearInterval(this.interval)
+    //   } else {
+    //     this.timeLeft--
+    //   }
 
-    }, 1000)
+    // }, 1000)
   }
 
   sold() {
-    this.socket.emit('sold', { amount: this.currBidAmount, teamName: this.highestBidder })
+    // this.socket.emit('sold', { amount: this.currBidAmount, teamName: this.highestBidder })
   }
 }

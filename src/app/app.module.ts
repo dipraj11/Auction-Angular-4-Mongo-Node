@@ -20,6 +20,8 @@ import { ApiService } from './services/api.service';
 import { Globals } from './globals';
 import { DisplayScreenComponent } from './components/display-screen/display-screen.component';
 
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,8 @@ import { DisplayScreenComponent } from './components/display-screen/display-scre
     AdminPanelComponent,
     OwnerPanelComponent,
     RegisterScreenComponent,
-    DisplayScreenComponent
+    DisplayScreenComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -38,8 +41,9 @@ import { DisplayScreenComponent } from './components/display-screen/display-scre
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    NguiAutoCompleteModule,
     Routings
-    
+
     // BootstrapModule
   ],
   providers: [ApiService, Globals],

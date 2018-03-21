@@ -49,6 +49,9 @@ export class ApiService {
   getAllPlayers() {
     return this.http.get('/get-all-players')
   }
+  getPlayerNames() {
+    return this.http.get('/get-player-name')
+  }
   getTeamDetails() {
     return this.http.get('/team-details')
   }
