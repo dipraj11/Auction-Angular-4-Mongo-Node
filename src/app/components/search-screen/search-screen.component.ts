@@ -36,6 +36,8 @@ export class SearchScreenComponent implements OnInit {
     })
 
     this.keys = Object.keys(this.players[0])
+    console.log(this.keys);
+    
     for (let i = 0; i < this.keys.length; i++) {
       this.nHeads[i] = this.enums[this.keys[i]]
     }
