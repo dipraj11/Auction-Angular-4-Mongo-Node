@@ -16,7 +16,7 @@ export class SearchScreenComponent implements OnInit {
     team: 'Team',
     sold: 'Status',
     basePrice: 'Base Price',
-    specialty: 'Specialty',
+    speciality: 'Speciality',
     category: 'Category',
     gender: 'Gender',
     soldAmount: 'Amount Sold For'
@@ -40,7 +40,6 @@ export class SearchScreenComponent implements OnInit {
         this.nHeads[i] = this.enums[this.keys[i]]
       }
     })
-
   }
 
 }

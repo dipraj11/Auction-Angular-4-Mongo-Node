@@ -3,15 +3,20 @@ var Schema = mongoose.Schema;
 
 var Player = new Schema({
     name: String,
-    basePrice: Number,
-    batting: Boolean,
-    bowling: Boolean,
-    wicketKeeping: Boolean,
     captain: Boolean,
-    marquee: Boolean,
+    owner:Boolean,
+    speciality:String,
+    basePrice: Number,
+    category:String,
     sold: Boolean,
-    team: String
-});
+    team: String,
+    soldAmount:Number,
+    gender:String,
+    sortOrder:Number
+
+},{
+    timestamps: true
+  });
 
 
 module.exports = mongoose.model('Player', Player);

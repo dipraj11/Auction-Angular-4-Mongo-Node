@@ -14,34 +14,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
 
-player = [{
-    name: 'Shishir Tiwari',
-    batting: true,
-    bowling: true,
-    fielding: false,
-    basePrice: 78,
-    sold: false,
-    team: '',
-  },
-  {
-    name: 'Rajesh Singh',
-    batting: true,
-    bowling: false,
-    fielding: false,
-    basePrice: 50,
-    sold: false,
-    team: '',
-  },
-  {
-    name: 'Vishesh Harwani',
-    batting: true,
-    bowling: true,
-    fielding: true,
-    basePrice: 65,
-    sold: false,
-    team: '',
-  }
-]
 
 teams = [
   {
@@ -186,7 +158,7 @@ app.post('/register', function (req, res) {
   if (req.body.teamName == 'admin') {
     type = 'admin'
   } else {
-    type = 'owner'
+    type = req.body.teamName;
   }
   Account.register(new Account({ username: req.body.teamName, accounttype: type }), req.body.password, function (err, account) {
     if (err) {
@@ -201,10 +173,29 @@ app.post('/register', function (req, res) {
 
 const Player = require('./server/models/players')
 
-Player.find({}, function(err,data) {
-  console.log(data);
+// Player.find({}, function(err,data) {
+//   console.log(data);
+  
+// })
+
+
+//for initial team data
+app.get('/get-all-players', (req, res, next) => {
+  playersData = [];
+  Player.find({},{_id:false,sortOrder:false,captain:false,owner:false}, function(err,playersDetails) {
+    if(err){
+      console.log(err)
+      res.send([]);
+    }
+    //console.log(playersDetails);
+    playersData = playersDetails 
+    res.json(playersData);
+  })
   
 })
+
+
+
 //for initial team data
 app.get('/team-details', (req, res, next) => {
   let jsonToSend = []
@@ -258,46 +249,46 @@ let i = 0
 
 var io = require('socket.io')(server);
 // socket io
-io.on('connection', function (socket) {
-  console.log('User connected');
-  socket.broadcast.emit('load-new-player', player[0])
-  socket.broadcast.emit('broadcast-bid', player[0].basePrice)
+// io.on('connection', function (socket) {
+//   console.log('User connected');
+//   socket.broadcast.emit('load-new-player', player[0])
+//   socket.broadcast.emit('broadcast-bid', player[0].basePrice)
 
-  socket.on('bid', function (data) {
-    console.log(`Bid Data is ${data["amount"]}`);
-    console.log('complete data is :')
-    console.log(data)
-    socket.broadcast.emit('broadcast-bid', data)
-  });
+//   socket.on('bid', function (data) {
+//     console.log(`Bid Data is ${data["amount"]}`);
+//     console.log('complete data is :')
+//     console.log(data)
+//     socket.broadcast.emit('broadcast-bid', data)
+//   });
 
-  socket.on('sold', function (data) {
-    console.log(`value of i is ${i}`);
+//   socket.on('sold', function (data) {
+//     console.log(`value of i is ${i}`);
     
-    //update player status
-    player[i].sold = true
+//     //update player status
+//     player[i].sold = true
     
-    player[i].soldPrice = data.amount
-    //subtract buying team's balance
-    for(let x = 0; x< teams.length; x++) {
-      if(teams[x].teamname == data.teamName){
-        teams[x].balance = teams[x].balance - data.amount
-        teams[x].noOfPlayers++
-        break;
-      }
-    }
-    //add to buying teams roster
-    player[i].team = data.teamName
+//     player[i].soldPrice = data.amount
+//     //subtract buying team's balance
+//     for(let x = 0; x< teams.length; x++) {
+//       if(teams[x].teamname == data.teamName){
+//         teams[x].balance = teams[x].balance - data.amount
+//         teams[x].noOfPlayers++
+//         break;
+//       }
+//     }
+//     //add to buying teams roster
+//     player[i].team = data.teamName
     
-    //log player
-    console.log(player[i])
-    //log team details
+//     //log player
+//     console.log(player[i])
+//     //log team details
 
-    //index update
-    i++
-    //load new player
-    socket.broadcast.emit('load-new-player', player[i])
-  })
-});
+//     //index update
+//     i++
+//     //load new player
+//     socket.broadcast.emit('load-new-player', player[i])
+//   })
+// });
 
 
 function loadPlayer(index) {
