@@ -1,4 +1,4 @@
-import { body } from 'express-validator/check';
+// import { body } from 'express-validator/check';
 
 // Get dependencies
 const express = require('express');
@@ -233,11 +233,6 @@ app.post('/sold-player', (req, res, next) => {
 
   })
 })
-
-
-
-
-
 
 
 //for initial team data
