@@ -114,7 +114,7 @@ export class AdminPanelComponent implements OnInit {
     // }, 1000)
   }
 
-  sold() {
+  sell() {
     let params = {
       playerName: this.adminForm.value.playerName,
       bidAmount: this.adminForm.value.bidAmount,
