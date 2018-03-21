@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-search-screen',
@@ -8,42 +9,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class SearchScreenComponent implements OnInit {
 
-  players = [{
-    name: 'Shishir Tiwari',
-    batting: true,
-    bowling: true,
-    fielding: false,
-    basePrice: 50,
-    sold: false,
-    team: '',
-
-
-  },
-  {
-    name: 'Rajesh Singh',
-    batting: true,
-    bowling: true,
-    fielding: false,
-    basePrice: 50,
-    sold: false,
-    team: '',
-
-
-
-  },
-  {
-    name: 'Vishesh Harwani',
-    batting: true,
-    bowling: true,
-    fielding: false,
-    basePrice: 50,
-    sold: false,
-    team: '',
-
-
-
-  }
-  ]
+  players: Object[] = []
   nHeads: any = []
   enums: any = {
     name: 'Name',
@@ -59,9 +25,15 @@ export class SearchScreenComponent implements OnInit {
     true: 'Sold',
     false: 'Unsold'
   }
-  constructor() { }
+  constructor(public api: ApiService) { }
 
   ngOnInit() {
+    this.api.getAllPlayers().subscribe((data) => {
+      console.log(data);
+      this.players = <Object[]>data
+
+    })
+
     this.keys = Object.keys(this.players[0])
     for (let i = 0; i < this.keys.length; i++) {
       this.nHeads[i] = this.enums[this.keys[i]]

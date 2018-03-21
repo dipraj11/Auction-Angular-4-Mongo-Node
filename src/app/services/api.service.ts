@@ -45,6 +45,10 @@ export class ApiService {
     })
   }
 
+
+  getAllPlayers() {
+    return this.http.get('/get-all-players')
+  }
   getTeamDetails() {
     return this.http.get('/team-details')
   }
