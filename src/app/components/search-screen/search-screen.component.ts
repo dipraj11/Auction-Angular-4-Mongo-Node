@@ -16,9 +16,9 @@ export class SearchScreenComponent implements OnInit {
     team: 'Team',
     sold: 'Status',
     basePrice: 'Base Price',
-    batting: 'Batting',
-    bowling: 'Bowling',
-    fielding: 'Fielding',
+    specialty: 'Specialty',
+    category: 'Category',
+    gender: 'Gender'
   }
   keys
   soldStatus = {
