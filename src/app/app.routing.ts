@@ -7,6 +7,7 @@ import { LoginScreenComponent } from './components/login-screen/login-screen.com
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { OwnerPanelComponent } from './components/owner-panel/owner-panel.component';
 import { RegisterScreenComponent } from './components/register-screen/register-screen.component';
+import { DisplayScreenComponent } from './components/display-screen/display-screen.component';
 //Guards
 // import { AuthGuardService } from "./services/auth-guard/auth-guard.service";
 
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     { path: 'owner', component: OwnerPanelComponent, pathMatch: 'full' },
     { path: 'search', component: SearchScreenComponent },
     { path: 'register', component: RegisterScreenComponent },
+    { path: 'display', component: DisplayScreenComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
