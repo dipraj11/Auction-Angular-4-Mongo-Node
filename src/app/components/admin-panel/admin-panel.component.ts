@@ -3,6 +3,12 @@ import { timer } from 'rxjs/observable/timer'
 import { take, map } from 'rxjs/operators'
 import * as io from "socket.io-client";
 import { ApiService } from '../../services/api.service'
+
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+
+
+
+
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
@@ -10,11 +16,16 @@ import { ApiService } from '../../services/api.service'
 })
 export class AdminPanelComponent implements OnInit {
 
-  interval
-  highestBidder: any;
-  timeLeft = 15
+
+  adminForm: FormGroup
+
+
+  playerName: FormControl
+  bidAmount: FormControl
+  teamName: FormControl
+
   playerNames
-  bidSealed: boolean = true
+
   playerData = {
     name: '',
     batting: true,
@@ -25,11 +36,7 @@ export class AdminPanelComponent implements OnInit {
     team: '',
     imagePath: ''
   }
-  newBid: boolean
 
-  //player data
-  firstName: string
-  lastName: string
 
   currBidAmount: number
 
@@ -39,10 +46,23 @@ export class AdminPanelComponent implements OnInit {
 
   ngOnInit() {
     this.api.getPlayerNames().subscribe((data) => {
-      console.log(data);
 
+      console.log(data);
       this.playerNames = data
+
     })
+
+    this.playerName = new FormControl('', Validators.required)
+    this.bidAmount = new FormControl('', Validators.required)
+    this.teamName = new FormControl('', Validators.required)
+    this.adminForm = new FormGroup({
+      playerName: this.playerName,
+      bidAmount: this.bidAmount,
+      teamName: this.teamName,
+    })
+
+
+
     // this.newBid = true
 
     // this.api.updateBidAmount().subscribe((data) => {
@@ -95,6 +115,14 @@ export class AdminPanelComponent implements OnInit {
   }
 
   sold() {
+    let params = {
+      playerName: this.adminForm.value.playerName,
+      bidAmount: this.adminForm.value.bidAmount,
+      teamName: this.adminForm.value.teamName
+    }
+    this.api.sellPlayer(params).subscribe((data)=>{
+      console.log(data)
+    })
     // this.socket.emit('sold', { amount: this.currBidAmount, teamName: this.highestBidder })
   }
 }

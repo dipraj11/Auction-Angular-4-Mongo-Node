@@ -1,27 +1,37 @@
 <div class="main-container">
   <div class="content-container">
     <div class="content-area">
-      <form [formGroup]="adminForm">
-        <input auto-complete [source]="playerNames" />
-        <input type="number" formControlName="bidAmount" placeholder="$">
-        <div class="select">
-          <select formControlName="teamName">
-            <option value="Super Sixers">Super Sixers</option>
-            <option value="Samurai Jack">Samurai Jack</option>
-            <option value="Gangs of Wasseypur">Gangs of Wasseypur</option>
-            <option value="Bhaiyaji Ismile">Bhaiyaji Ismile</option>
-            <option value="Jhakaas">Jhakaas</option>
-            <option value="Rubber Ducks">Rubber Ducks</option>
-            <option value="Velle Log">Velle Log </option>
-            <option value="Ninja Warriors">Ninja Warriors</option>
-            <option value="Queen's Aces - returns">Queen's Aces - returns</option>
-            <option value="Saiyans XI">Saiyans XI</option>
-            <option value="Dekh Lenge">Dekh Lenge</option>
-            <option value="KI FARAK PENDA">KI FARAK PENDA</option>
-          </select>
-        </div>
 
-      </form>
+
+      <div class="wrapper-login translate">
+        <h4>Sell Player</h4>
+        <form [formGroup]="adminForm">
+          <input auto-complete [source]="playerNames" formControlName="playerName" placeholder="Player Name" style="border: none; border-bottom:1px solid #636363;" max-num-list="5"/>
+          <input type="number" formControlName="bidAmount" placeholder="$ Price">
+          <div class="select">
+            <select formControlName="teamName">
+              <option value="" disabled selected style="color: #aeaeae" hidden>Team Name</option>
+              <option value="Super Sixers">Super Sixers</option>
+              <option value="Samurai Jack">Samurai Jack</option>
+              <option value="Gangs of Wasseypur">Gangs of Wasseypur</option>
+              <option value="Bhaiyaji Ismile">Bhaiyaji Ismile</option>
+              <option value="Jhakaas">Jhakaas</option>
+              <option value="Rubber Ducks">Rubber Ducks</option>
+              <option value="Velle Log">Velle Log </option>
+              <option value="Ninja Warriors">Ninja Warriors</option>
+              <option value="Queen's Aces - returns">Queen's Aces - returns</option>
+              <option value="Saiyans XI">Saiyans XI</option>
+              <option value="Dekh Lenge">Dekh Lenge</option>
+              <option value="KI FARAK PENDA">KI FARAK PENDA</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-block" (click)="sell()">Bech De Bhai</button>
+
+        </form>
+
+      </div>
+
+
     </div>
   </div>
 </div>
