@@ -1,3 +1,70 @@
-<p>
-  display-screen works!
-</p>
+<div class="main-container">
+  <div class="content-container">
+
+    <div class="content-area">
+      <div class="box">
+
+        <div class="row">
+          <!-- image -->
+          <div class="col-md-2 wrapper">
+            <div class="player-image">
+              <!-- <img src=""> -->
+            </div>
+          </div>
+          <!-- details -->
+          <div class="col-md-3 wrapper">
+            <div class="row">
+              <!-- name -->
+              <div class="col-md-12">
+                <h2 class="first-name intro">{{firstName}}</h2>
+                <h4 class="last-name intro-inline">{{lastName}}</h4>
+              </div>
+            </div>
+            <div class="row">
+              <!-- batting -->
+              <div class="col-md-4 skill-box">
+                <h6 [ngClass]="{'green': playerData.batting, 'grey': !playerData.batting}">Batting</h6>
+              </div>
+              <!-- bowling -->
+              <div class="col-md-4 skill-box">
+                <h6 [ngClass]="{'green': playerData.bowling, 'grey': !playerData.bowling}">Bowling</h6>
+              </div>
+              <!-- fielding -->
+              <div class="col-md-4 skill-box">
+                <h6 [ngClass]="{'green': playerData.fielding, 'grey': !playerData.fielding}">Fielding</h6>
+              </div>
+            </div>
+          </div>
+          <!-- sold for/timer -->
+          <div class="col-md-2 wrapper">
+            <ng-container *ngIf="newBid">
+              <button class="btn btn-primary" (click)="startBid()">Start Bid</button>
+            </ng-container>
+
+            <ng-container *ngIf="!newBid">
+              <h6 class="intro-inline">Time Left</h6>
+              <h5 class="intro">{{timeLeft}}s</h5>
+            </ng-container>
+          </div>
+          <!-- sold to/latest bid -->
+          <div class="col-md-2 wrapper">
+            <ng-container *ngIf="!newBid">
+              <h6 class="intro-inline">Highest Bid</h6>
+              <h5 class="intro">${{currBidAmount}}</h5>
+              <h6 class="intro-inline" >Highest Bidder</h6>
+              
+              <h5 class="intro">{{highestBidder}}</h5>
+            </ng-container>
+            <!-- <ng-container *ngIf="bidSealed">
+              <h6 class="intro-inline">Sold to</h6>
+              <h5 class="intro">{{highestBidder}}</h5>
+            </ng-container> -->
+          </div>
+          <div class="col-md-2 wrapper">
+            <button class="btn btn-primary btn-block" (click)="sold()"> Bech Do </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
