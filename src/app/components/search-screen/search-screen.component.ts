@@ -18,7 +18,8 @@ export class SearchScreenComponent implements OnInit {
     basePrice: 'Base Price',
     specialty: 'Specialty',
     category: 'Category',
-    gender: 'Gender'
+    gender: 'Gender',
+    soldAmount: 'Amount Sold For'
   }
   keys
   soldStatus = {
