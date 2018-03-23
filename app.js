@@ -253,7 +253,7 @@ app.post('/sold-player', (req, res, next) => {
     Account.find({ teamName: req.body.teamName }, (err, data) => {
       data.balance = data.balance - req.body.bidAmount;
       Account.findOneAndUpdate({ teamName: req.body.teamName }, { $set: { balance: data.balance } }, (err, data) => {
-        res.send(data.balance);
+        res.send({message: 'done'});
       })
     })
   })
@@ -322,9 +322,9 @@ io.on('connection', function (socket) {
     buzzerFlag = true
     socket.broadcast.emit('reset-all-buzzers', buzzerFlag)
   })
-  socket.on('sold'), function () {
+  socket.on('sold', function () {
     socket.broadcast.emit('refresh-all')
-  }
+  })
 });
 
 

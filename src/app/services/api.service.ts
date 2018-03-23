@@ -65,6 +65,10 @@ export class ApiService {
     })
   }
 
+  getAllPlayersR(){
+    return this.http.get('http://localhost:4000/get-all-players-r')
+  }
+
 
   getAllPlayers() {
     return this.http.get('http://localhost:4000/get-all-players')

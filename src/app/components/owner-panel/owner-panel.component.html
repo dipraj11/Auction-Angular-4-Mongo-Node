@@ -14,6 +14,7 @@
                     <th>Name</th>
                     <th>Specialty</th>
                     <th>Bought Price</th>
+                    <th>Gender</th>
                     
                   </tr>
                 </thead>
@@ -21,8 +22,9 @@
                   <tr *ngFor="let player of players; let i = index">
                     <td>{{i+1}}</td>
                     <td>{{player.name}}</td>
-                    <td>{{player.batting}}</td>
-                    <td>{{player.bowling}}</td>
+                    <td>{{player.speciality}}</td>
+                    <td>{{player.soldAmount}}</td>
+                    <td>{{player.gender}}</td>
                   </tr>
                 </tbody>
               </table>

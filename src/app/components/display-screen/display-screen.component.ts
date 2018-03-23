@@ -64,8 +64,14 @@ export class DisplayScreenComponent implements OnInit {
     this.api.updateBuzzerStatus().subscribe((data) => {
       console.log(`Data from UpdateBidAmount Admin Side ${data}`);
       this.currBidder = data
+    })
 
 
+
+    //get all players at first init
+    this.api.getAllPlayersR().subscribe((data)=>{
+      console.log(data)
+      
     })
 
     //after bid is complete

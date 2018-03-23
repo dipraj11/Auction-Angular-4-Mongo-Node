@@ -121,7 +121,7 @@ export class AdminPanelComponent implements OnInit {
       teamName: this.adminForm.value.teamName
     }
     this.api.sellPlayer(params).subscribe((data)=>{
-      console.log(data)
+      
       this.socket.emit('sold')
     })
     
