@@ -125,4 +125,8 @@ export class AdminPanelComponent implements OnInit {
     })
     // this.socket.emit('sold', { amount: this.currBidAmount, teamName: this.highestBidder })
   }
+
+  resetBuzzer(){
+    
+  }
 }

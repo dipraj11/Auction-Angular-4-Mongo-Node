@@ -97,10 +97,11 @@ const login = require('./server/routes/login');
 
 
 const app = express();
+app.use(cors())
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors())
+
 // view engine setup
 // app.set('views', path.join(__dirname, './server/views'));
 // app.set('view engine', 'jade');
