@@ -132,7 +132,7 @@ passport.use(new LocalStrategy(Account.authenticate()))
 
 // used to serialize the user
 passport.serializeUser(function (user, done) {
-  user = user.toObject()
+  // user = user.toObject()
 
   done(null, user);
 });
@@ -140,7 +140,7 @@ passport.serializeUser(function (user, done) {
 // used to deserialize the user
 passport.deserializeUser(function (id, done) {
   Account.findById(id, function (err, user) {
-    user = user.toObject()
+    // user = user.toObject()
 
     done(err, user);
   });
