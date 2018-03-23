@@ -6,22 +6,22 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ApiService {
-  socket = io('http://localhost:4000');
+  socket = io('http://35.192.54.134:4000');
 
 
   constructor(public http: HttpClient) { }
 
   registerTeam(params) {
-    return this.http.post('http://localhost:4000/register', params)
+    return this.http.post('register', params)
   }
 
 
   getPlayer() {
-    return this.http.get('http://localhost:4000/get-player-info')
+    return this.http.get('get-player-info')
   }
 
   login(params) {
-    return this.http.post('http://localhost:4000/login/login', params)
+    return this.http.post('login/login', params)
   }
 
 
@@ -77,20 +77,20 @@ export class ApiService {
   }
 
   getAllPlayersR() {
-    return this.http.get('http://localhost:4000/get-all-players-r')
+    return this.http.get('/get-all-players-r')
   }
 
 
   getAllPlayers() {
-    return this.http.get('http://localhost:4000/get-all-players')
+    return this.http.get('/get-all-players')
   }
   getPlayerNames() {
-    return this.http.get('http://localhost:4000/get-player-name')
+    return this.http.get('/get-player-name')
   }
 
   sellPlayer(params) {
     console.log(params);
 
-    return this.http.post('http://localhost:4000/sold-player', params)
+    return this.http.post('/sold-player', params)
   }
 } 
