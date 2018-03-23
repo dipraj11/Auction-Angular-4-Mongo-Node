@@ -25,10 +25,12 @@ export class ApiService {
   }
 
 
-
+  checkStatus() {
+    return this.http.get('/buzzer-status')
+  }
   //socket functions
 
-  updateBidAmount() {
+  updateBuzzerStatus() {
     return Observable.create((observer) => {
       this.socket.on('broadcast-bid', (data) => {
         observer.next(data)
