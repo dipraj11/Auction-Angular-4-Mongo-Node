@@ -194,8 +194,23 @@ app.get('/get-all-players', (req, res, next) => {
     //console.log(playersDetails);
     playersData = playersDetails 
     res.json(playersData);
-  })
-  
+  }) 
+})
+
+
+
+//for initial team data
+app.get('/get-team-players', (req, res, next) => {
+  playersData = [];
+  Player.find({},{_id:false,sortOrder:false,captain:false,owner:false}, function(err,playersDetails) {
+    if(err){
+      console.log(err)
+      res.send([]);
+    }
+    //console.log(playersDetails);
+    playersData = playersDetails 
+    res.json(playersData);
+  }) 
 })
 
 app.get('/get-player-name', (req, res, next) => {
@@ -206,13 +221,11 @@ app.get('/get-player-name', (req, res, next) => {
       res.send([]);
     }
     //console.log(playersDetails);
-
     playersDetails.forEach(element => {
       arrNames.push(element.name)
     });
     res.json(arrNames);
   })
-  
 })
 
 
@@ -223,46 +236,34 @@ app.post('/sold-player', (req, res, next) => {
       res.send([]);
     }
     //console.log(playersDetails);
-
     Account.find({teamName:req.body.teamName},(err,data)=>{
       data.balance = data.balance - req.body.bidAmount;
       Account.findOneAndUpdate({teamName:req.body.teamName},{$set:{balance:data.balance}},(err,data) => {
         res.send('Done');
       })
     })
-
-
-
   })
 })
 
 
 //for initial team data
-app.get('/team-details', (req, res, next) => {
-  let jsonToSend = []
-  let balance = 0
-  let noOfPlayers = 0
-  for (let i = 0; i < player.length; i++) {
-    if (player[i].team == req.user.username) {
-      jsonToSend.push(player[i])
-    }
-  }
-
-  
-
-  for(let i = 0 ; i<teams.length; i++){
-    if(teams[i].teamname == req.user.username){
-      balance = teams[i].balance
-      noOfPlayers = jsonToSend.length
-    }
-  }
-
-  
-  
-
-
-  res.json({balance: balance, noOfPlayers: noOfPlayers, playerData: jsonToSend});
-})
+// app.get('/team-details', (req, res, next) => {
+//   let jsonToSend = []
+//   let balance = 0
+//   let noOfPlayers = 0
+//   for (let i = 0; i < player.length; i++) {
+//     if (player[i].team == req.user.username) {
+//       jsonToSend.push(player[i])
+//     }
+//   }
+//   for(let i = 0 ; i<teams.length; i++){
+//     if(teams[i].teamname == req.user.username){
+//       balance = teams[i].balance
+//       noOfPlayers = jsonToSend.length
+//     }
+//   }
+//   res.json({balance: balance, noOfPlayers: noOfPlayers, playerData: jsonToSend});
+// })
 
 
 // Catch all other routes and return the index file
