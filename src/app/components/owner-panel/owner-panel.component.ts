@@ -39,7 +39,7 @@ export class OwnerPanelComponent implements OnInit {
 
 
 
-  socket = io('http://localhost:4000');
+  socket = io('http://35.192.54.134:4000');
 
   constructor(public api: ApiService, public globals: Globals) { }
 

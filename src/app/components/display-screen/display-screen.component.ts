@@ -45,7 +45,7 @@ export class DisplayScreenComponent implements OnInit {
 
   currBidder: string = ''
 
-  socket = io('http://localhost:4000');
+  socket = io('http://35.192.54.134:4000');
 
   index = 1
   name

@@ -40,7 +40,7 @@ export class AdminPanelComponent implements OnInit {
 
   currBidAmount: number
 
-  socket = io('http://localhost:4000');
+  socket = io('http://35.192.54.134:4000');
 
   constructor(public api: ApiService) { }
 
