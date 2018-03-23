@@ -46,6 +46,8 @@ export class ApiService {
     })
   }
 
+
+
   getTeamPlayers() {
     return this.http.get('/get-team-details')
   }
@@ -65,7 +67,7 @@ export class ApiService {
     })
   }
 
-  getAllPlayersR(){
+  getAllPlayersR() {
     return this.http.get('http://localhost:4000/get-all-players-r')
   }
 

@@ -35,17 +35,7 @@ export class DisplayScreenComponent implements OnInit {
   highestBidder: any;
   timeLeft = 15
   activeState = 'inactive'
-  bidSealed: boolean = true
-  playerData = {
-    name: '',
-    batting: true,
-    bowling: true,
-    allRounder: false,
-    basePrice: 50,
-    sold: false,
-    team: '',
-    imagePath: ''
-  }
+  players: any
   newBid: boolean
 
   //player data
@@ -55,6 +45,11 @@ export class DisplayScreenComponent implements OnInit {
   currBidder: string = ''
 
   socket = io('http://localhost:4000');
+
+  index = 1
+  name
+  speciality
+  basePrice
 
   constructor(public api: ApiService) { }
 
@@ -69,48 +64,40 @@ export class DisplayScreenComponent implements OnInit {
 
 
     //get all players at first init
-    this.api.getAllPlayersR().subscribe((data)=>{
-      console.log(data)
-      
+    this.api.getAllPlayersR().subscribe((data) => {
+      this.players = data
+
+      //update initial player
+      this.name = data[this.index - 1]["name"]
+      this.speciality = data[this.index - 1]["speciality"]
+      this.basePrice = data[this.index - 1]["basePrice"]
+
     })
 
     //after bid is complete
-    this.api.updatePlayerInfo().subscribe((data) => {
-      console.log(data)
-      this.playerData = {
-        name: data["name"],
-        batting: data["batting"],
-        bowling: data["bowling"],
-        allRounder: data["allRounder"],
-        basePrice: data["basePrice"],
-        sold: data["sold"],
-        team: data["team"],
-        imagePath: data["imagePath"]
-      }
+    this.api.refreshAllPlayerData().subscribe((data) => {
+      this.index++;
+      console.log(('in update display player'));
 
-
-      this.firstName = this.playerData.name.split(" ")[0]
-      this.lastName = this.playerData.name.split(" ")[1]
-
-      console.log(this.firstName);
-      console.log(this.lastName);
+      this.name = this.players[this.index - 1]["name"]
+      this.speciality = this.players[this.index - 1]["speciality"]
+      this.basePrice = this.players[this.index - 1]["basePrice"]
 
 
     })
-
   }
 
-  startBid() {
-    this.newBid = false
-    this.interval = setInterval(() => {
-      if (this.timeLeft == 0) {
-        clearInterval(this.interval)
-      } else {
-        this.timeLeft--
-      }
+  // startBid() {
+  //   this.newBid = false
+  //   this.interval = setInterval(() => {
+  //     if (this.timeLeft == 0) {
+  //       clearInterval(this.interval)
+  //     } else {
+  //       this.timeLeft--
+  //     }
 
-    }, 1000)
-  }
+  //   }, 1000)
+  // }
 
 
 }
