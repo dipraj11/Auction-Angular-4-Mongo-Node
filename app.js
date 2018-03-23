@@ -199,10 +199,12 @@ app.get('/get-all-players', (req, res, next) => {
 
 
 
+
+
 //for initial team data
 app.get('/get-team-players', (req, res, next) => {
   playersData = [];
-  Player.find({},{_id:false,sortOrder:false,captain:false,owner:false}, function(err,playersDetails) {
+  Player.find({},{_id:false,captain:true,owner:true,name:true,soldAmount:true,speciality:true}, function(err,playersDetails) {
     if(err){
       console.log(err)
       res.send([]);
