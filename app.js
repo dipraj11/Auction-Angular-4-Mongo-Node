@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
-
+let buzzerFlag = true
 
 teams = [
   {
@@ -132,7 +132,7 @@ passport.use(new LocalStrategy(Account.authenticate()))
 
 // used to serialize the user
 passport.serializeUser(function (user, done) {
-  user = user.toObject()
+  // user = user.toObject()
 
   done(null, user);
 });
@@ -140,7 +140,7 @@ passport.serializeUser(function (user, done) {
 // used to deserialize the user
 passport.deserializeUser(function (id, done) {
   Account.findById(id, function (err, user) {
-    user = user.toObject()
+    // user = user.toObject()
 
     done(err, user);
   });
@@ -164,7 +164,7 @@ app.post('/register', function (req, res) {
   } else {
     type = 'team';
   }
-  Account.register(new Account({ username: req.body.teamName, accounttype: type ,ownerName:req.body.ownerName,captainName:req.body.captainName,teamName:req.body.teamName}), req.body.password, function (err, account) {
+  Account.register(new Account({ username: req.body.teamName, accounttype: type, ownerName: req.body.ownerName, captainName: req.body.captainName, teamName: req.body.teamName }), req.body.password, function (err, account) {
     if (err) {
       console.log(err)
 
@@ -179,22 +179,22 @@ const Player = require('./server/models/players')
 
 // Player.find({}, function(err,data) {
 //   console.log(data);
-  
+
 // })
 
 
 //for initial team data
 app.get('/get-all-players', (req, res, next) => {
   playersData = [];
-  Player.find({},{_id:false,sortOrder:false,captain:false,owner:false}, function(err,playersDetails) {
-    if(err){
+  Player.find({}, { _id: false, sortOrder: false, captain: false, owner: false }, function (err, playersDetails) {
+    if (err) {
       console.log(err)
       res.send([]);
     }
     //console.log(playersDetails);
-    playersData = playersDetails 
+    playersData = playersDetails
     res.json(playersData);
-  }) 
+  })
 })
 
 
@@ -204,21 +204,26 @@ app.get('/get-all-players', (req, res, next) => {
 //for initial team data
 app.get('/get-team-players', (req, res, next) => {
   playersData = [];
+<<<<<<< HEAD
   Player.find({},{_id:false,captain:true,owner:true,name:true,soldAmount:true,speciality:true}, function(err,playersDetails) {
     if(err){
+=======
+  Player.find({}, { _id: false, sortOrder: false, captain: false, owner: false }, function (err, playersDetails) {
+    if (err) {
+>>>>>>> d9804a4174dbe0cd044524cb6d4bb0efaf0603e1
       console.log(err)
       res.send([]);
     }
     //console.log(playersDetails);
-    playersData = playersDetails 
+    playersData = playersDetails
     res.json(playersData);
-  }) 
+  })
 })
 
 app.get('/get-player-name', (req, res, next) => {
   arrNames = [];
-  Player.find({},{name:true,_id:false}, function(err,playersDetails) {
-    if(err){
+  Player.find({}, { name: true, _id: false }, function (err, playersDetails) {
+    if (err) {
       console.log(err)
       res.send([]);
     }
@@ -232,21 +237,24 @@ app.get('/get-player-name', (req, res, next) => {
 
 
 app.post('/sold-player', (req, res, next) => {
-  Player.findOneAndUpdate({name:req.body.playerName},{$set:{sold:true,soldAmount:req.body.bidAmount,team:req.body.teamName}}, function(err,playersDetails) {
-    if(err){
+  Player.findOneAndUpdate({ name: req.body.playerName }, { $set: { sold: true, soldAmount: req.body.bidAmount, team: req.body.teamName } }, function (err, playersDetails) {
+    if (err) {
       console.log(err)
       res.send([]);
     }
     //console.log(playersDetails);
-    Account.find({teamName:req.body.teamName},(err,data)=>{
+    Account.find({ teamName: req.body.teamName }, (err, data) => {
       data.balance = data.balance - req.body.bidAmount;
-      Account.findOneAndUpdate({teamName:req.body.teamName},{$set:{balance:data.balance}},(err,data) => {
+      Account.findOneAndUpdate({ teamName: req.body.teamName }, { $set: { balance: data.balance } }, (err, data) => {
         res.send('Done');
       })
     })
   })
 })
 
+app.get('/buzzer-status', (req, res, next) => {
+  res.send(buzzerFlag)
+})
 
 //for initial team data
 // app.get('/team-details', (req, res, next) => {
@@ -293,46 +301,16 @@ let i = 0
 
 var io = require('socket.io')(server);
 // socket io
-// io.on('connection', function (socket) {
-//   console.log('User connected');
-//   socket.broadcast.emit('load-new-player', player[0])
-//   socket.broadcast.emit('broadcast-bid', player[0].basePrice)
+io.on('connection', function (socket) {
+  console.log('User connected');
 
-//   socket.on('bid', function (data) {
-//     console.log(`Bid Data is ${data["amount"]}`);
-//     console.log('complete data is :')
-//     console.log(data)
-//     socket.broadcast.emit('broadcast-bid', data)
-//   });
+  socket.on('bid', function (data) {
+    console.log(`Bid Data is ${data}`);
+    buzzerFlag = false
+    socket.broadcast.emit('broadcast-bid', data)
+  });
 
-//   socket.on('sold', function (data) {
-//     console.log(`value of i is ${i}`);
-    
-//     //update player status
-//     player[i].sold = true
-    
-//     player[i].soldPrice = data.amount
-//     //subtract buying team's balance
-//     for(let x = 0; x< teams.length; x++) {
-//       if(teams[x].teamname == data.teamName){
-//         teams[x].balance = teams[x].balance - data.amount
-//         teams[x].noOfPlayers++
-//         break;
-//       }
-//     }
-//     //add to buying teams roster
-//     player[i].team = data.teamName
-    
-//     //log player
-//     console.log(player[i])
-//     //log team details
-
-//     //index update
-//     i++
-//     //load new player
-//     socket.broadcast.emit('load-new-player', player[i])
-//   })
-// });
+});
 
 
 function loadPlayer(index) {

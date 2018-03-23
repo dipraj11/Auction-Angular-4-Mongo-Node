@@ -8,7 +8,7 @@
         <form [formGroup]="adminForm">
           <input auto-complete [source]="playerNames" formControlName="playerName" placeholder="Player Name" style="border: none; border-bottom:1px solid #636363;" max-num-list="5"/>
           <input type="number" formControlName="bidAmount" placeholder="$ Price">
-          <div class="select">
+          
             <select formControlName="teamName">
               <option value="" disabled selected style="color: #aeaeae" hidden>Team Name</option>
               <option value="Super Sixers">Super Sixers</option>
@@ -22,8 +22,9 @@
               <option value="Saiyans XI">Saiyans XI</option>
               <option value="Dekh Lenge">Dekh Lenge</option>
               <option value="KI FARAK PENDA">KI FARAK PENDA</option>
+              <option value="unsold">Unsold</option>
             </select>
-          </div>
+          
           <button class="btn btn-primary btn-block" (click)="sell()">Bech De Bhai</button>
           <button class="btn btn-primary btn-block" (click)="resetBuzzer()" style="height: 80px">Buzzer Reset karo</button>
 

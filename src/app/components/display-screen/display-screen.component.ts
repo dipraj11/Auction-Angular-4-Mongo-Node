@@ -61,14 +61,10 @@ export class DisplayScreenComponent implements OnInit {
   ngOnInit() {
     this.newBid = true
 
-    this.api.updateBidAmount().subscribe((data) => {
+    this.api.updateBuzzerStatus().subscribe((data) => {
       console.log(`Data from UpdateBidAmount Admin Side`);
       console.log(data);
-      //set current bid & its bidder name
-      this.currBidAmount = data.amount
-      this.highestBidder = data.teamName
-      //reset timer
-      this.timeLeft = 15
+      
 
     })
 

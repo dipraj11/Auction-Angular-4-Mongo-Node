@@ -38,7 +38,7 @@ export class LoginScreenComponent implements OnInit {
       this.globals.username = data["teamName"]  
       console.log(this.globals.username);
       
-      if (data["type"] == 'owner') {
+      if (data["type"] == 'team') {
         console.log('owner');
         this.router.navigate(['owner'])
       } else if (data["type"] == 'admin') {

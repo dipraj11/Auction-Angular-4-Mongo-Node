@@ -53,6 +53,8 @@ export class OwnerPanelComponent implements OnInit {
   }
 
 
+  buzzerStatus = true
+
 
 
   teamData = {}
@@ -66,48 +68,45 @@ export class OwnerPanelComponent implements OnInit {
   constructor(public api: ApiService, public globals: Globals) { }
 
   ngOnInit() {
-    this.globals.username = 'demo'
+
+    //to check status of buzzerButton
+    this.api.checkStatus().subscribe((data)=>{
+      if(data == true) {
+        this.buzzerStatus = true
+      } else {
+        this.buzzerStatus = false
+      }
+    })
 
     this.api.getTeamDetails().subscribe((data) => {
       this.teamData = data
     })
 
-    this.api.updateBidAmount().subscribe((data) => {
-      this.currBidAmount = data.amount
+    this.api.updateBuzzerStatus().subscribe((data) => {
+      this.buzzerStatus = data
     })
 
-    this.api.updatePlayerInfo().subscribe((data) => {
-      console.log(data)
-      this.playerData = {
-        name: data["name"],
-        batting: data["batting"],
-        bowling: data["bowling"],
-        fielding: data["fielding"],
-        basePrice: data["basePrice"],
-        sold: data["sold"],
-        team: data["team"],
-        imagePath: data["imagePath"]
-      }
+    // this.api.updatePlayerInfo().subscribe((data) => {
+    //   console.log(data)
+    //   this.playerData = {
+    //     name: data["name"],
+    //     batting: data["batting"],
+    //     bowling: data["bowling"],
+    //     fielding: data["fielding"],
+    //     basePrice: data["basePrice"],
+    //     sold: data["sold"],
+    //     team: data["team"],
+    //     imagePath: data["imagePath"]
+    //   }
 
 
-      
 
-    })
+
+    // })
   }
 
   bid() {
-    
-    
-    let bidAmount = parseInt(this.bidAmountInput.nativeElement.value)
-    // console.log(`Current bid amount is ${this.currBidAmount} & User bid amount is ${bidAmount}`);
-    if (bidAmount <= this.currBidAmount) {
-      alert('Your Bid Amount should be more than the current bid amount')
-    } else {
-      // console.log(`username is ${this.globals.username}`);
-      this.socket.emit('bid', { "amount": this.bidAmountInput.nativeElement.value, "teamName": this.globals.username })
-    }
-
-
+    this.socket.emit('bid', this.globals.username)
   }
 
 }
