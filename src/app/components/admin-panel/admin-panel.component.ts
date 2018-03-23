@@ -40,7 +40,7 @@ export class AdminPanelComponent implements OnInit {
 
   currBidAmount: number
 
-  // socket = io('http://localhost:4000');
+  socket = io('http://localhost:4000');
 
   constructor(public api: ApiService) { }
 
@@ -122,11 +122,13 @@ export class AdminPanelComponent implements OnInit {
     }
     this.api.sellPlayer(params).subscribe((data)=>{
       console.log(data)
+      this.socket.emit('sold')
     })
-    // this.socket.emit('sold', { amount: this.currBidAmount, teamName: this.highestBidder })
+    
+    
   }
 
   resetBuzzer(){
-    
+    this.socket.emit('reset')
   }
 }

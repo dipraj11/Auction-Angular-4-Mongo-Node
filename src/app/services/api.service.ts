@@ -38,7 +38,25 @@ export class ApiService {
     })
   }
 
+  resetAllBuzzers() {
+    return Observable.create((observer) => {
+      this.socket.on('reset-all-buzzers', (data) => {
+        observer.next(data)
+      })
+    })
+  }
 
+  getTeamPlayers() {
+    return this.http.get('/get-team-details')
+  }
+
+  refreshAllPlayerData() {
+    return Observable.create((observer) => {
+      this.socket.on('refresh-all', (data) => {
+        observer.next(data)
+      })
+    })
+  }
   updatePlayerInfo() {
     return Observable.create((observer) => {
       this.socket.on('load-new-player', (data) => {
@@ -54,9 +72,7 @@ export class ApiService {
   getPlayerNames() {
     return this.http.get('http://localhost:4000/get-player-name')
   }
-  getTeamDetails() {
-    return this.http.get('http://localhost:4000/team-details')
-  }
+
   sellPlayer(params) {
     console.log(params);
 

@@ -52,7 +52,7 @@ export class DisplayScreenComponent implements OnInit {
   firstName: string
   lastName: string
 
-  currBidAmount: number
+  currBidder: string = ''
 
   socket = io('http://localhost:4000');
 
@@ -62,9 +62,9 @@ export class DisplayScreenComponent implements OnInit {
     this.newBid = true
 
     this.api.updateBuzzerStatus().subscribe((data) => {
-      console.log(`Data from UpdateBidAmount Admin Side`);
-      console.log(data);
-      
+      console.log(`Data from UpdateBidAmount Admin Side ${data}`);
+      this.currBidder = data
+
 
     })
 
@@ -106,8 +106,5 @@ export class DisplayScreenComponent implements OnInit {
     }, 1000)
   }
 
-  sold() {
-    this.socket.emit('sold', { amount: this.currBidAmount, teamName: this.highestBidder })
-  }
 
 }

@@ -10,36 +10,8 @@ import { Globals } from '../../globals'
   styleUrls: ['./owner-panel.component.sass']
 })
 export class OwnerPanelComponent implements OnInit {
-  players = [
-    {
-      name: 'Shishir Tiwari',
-      batting: true,
-      bowling: true,
-      fielding: true,
-      price: 500
-    },
-    {
-      name: 'Vishesh Harwani',
-      batting: true,
-      bowling: true,
-      fielding: true,
-      price: 500
-    },
-    {
-      name: 'Arnav Gupta',
-      batting: true,
-      bowling: true,
-      fielding: true,
-      price: 500
-    },
-    {
-      name: 'Kapil Gadhire',
-      batting: true,
-      bowling: true,
-      fielding: true,
-      price: 500
-    }
-  ]
+
+  players: any[]
 
   playerData = {
     name: '',
@@ -52,6 +24,8 @@ export class OwnerPanelComponent implements OnInit {
     imagePath: '',
   }
 
+  maximumBid: number
+
 
   buzzerStatus = true
 
@@ -60,6 +34,8 @@ export class OwnerPanelComponent implements OnInit {
   teamData = {}
   @ViewChild('bidAmount') bidAmountInput
   currBidAmount: number
+  currBalance: number = 2000
+
 
 
 
@@ -70,20 +46,26 @@ export class OwnerPanelComponent implements OnInit {
   ngOnInit() {
 
     //to check status of buzzerButton
-    this.api.checkStatus().subscribe((data)=>{
-      if(data == true) {
-        this.buzzerStatus = true
-      } else {
-        this.buzzerStatus = false
-      }
-    })
 
-    this.api.getTeamDetails().subscribe((data) => {
-      this.teamData = data
-    })
+    this.maximumBid = 2000- ( (2000-this.currBalance) + (12) * 50)
+
 
     this.api.updateBuzzerStatus().subscribe((data) => {
-      this.buzzerStatus = data
+      this.buzzerStatus = false
+    })
+
+
+    this.api.refreshAllPlayerData().subscribe((data) => {
+      this.api.getTeamPlayers().subscribe((playerDetails) => {
+        this.players = playerDetails['players']
+        this.currBalance = playerDetails['balance']
+
+      })
+    })
+
+    this.api.resetAllBuzzers().subscribe((data) => {
+      this.buzzerStatus = true
+      this.maximumBid = (this.currBalance + (15 - (this.players.length - 1)) * 50)
     })
 
     // this.api.updatePlayerInfo().subscribe((data) => {
