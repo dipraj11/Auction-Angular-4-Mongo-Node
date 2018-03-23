@@ -59,6 +59,15 @@ export class ApiService {
       })
     })
   }
+
+
+  updateTimer(){
+    return Observable.create((observer) => {
+      this.socket.on('update-timer', (data) => {
+        observer.next(data)
+      })
+    })
+  }
   updatePlayerInfo() {
     return Observable.create((observer) => {
       this.socket.on('load-new-player', (data) => {

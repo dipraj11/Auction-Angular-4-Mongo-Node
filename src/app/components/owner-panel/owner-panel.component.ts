@@ -68,13 +68,13 @@ export class OwnerPanelComponent implements OnInit {
       this.api.getTeamPlayers().subscribe((playerDetails) => {
         this.players = playerDetails['plyerDetails']
         this.currBalance = playerDetails['balance']
-
+        this.maximumBid = (this.currBalance + (15 - (this.players.length - 1)) * 50)
       })
     })
 
     this.api.resetAllBuzzers().subscribe((data) => {
       this.buzzerStatus = true
-      this.maximumBid = (this.currBalance + (15 - (this.players.length - 1)) * 50)
+
     })
 
     // this.api.updatePlayerInfo().subscribe((data) => {

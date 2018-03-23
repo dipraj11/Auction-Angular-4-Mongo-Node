@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { timer } from 'rxjs/observable/timer'
 import { take, map } from 'rxjs/operators'
 import * as io from "socket.io-client";
 import { ApiService } from '../../services/api.service'
+import { HttpClient } from '@angular/common/http'
 import {
   trigger,
   state,
@@ -33,7 +34,7 @@ import {
 export class DisplayScreenComponent implements OnInit {
   interval
   highestBidder: any;
-  timeLeft = 15
+  timer = 15
   activeState = 'inactive'
   players: any
   newBid: boolean
@@ -51,9 +52,14 @@ export class DisplayScreenComponent implements OnInit {
   speciality
   basePrice
 
-  constructor(public api: ApiService) { }
+  @ViewChild('playerImage') playerImage
+
+  constructor(public api: ApiService, public http: HttpClient) { }
 
   ngOnInit() {
+
+    let x = 'akhil.ram@quantiphi.com'
+
     this.newBid = true
 
     this.api.updateBuzzerStatus().subscribe((data) => {
@@ -65,12 +71,15 @@ export class DisplayScreenComponent implements OnInit {
 
     //get all players at first init
     this.api.getAllPlayersR().subscribe((data) => {
+      console.log(data)
       this.players = data
 
       //update initial player
       this.name = data[this.index - 1]["name"]
       this.speciality = data[this.index - 1]["speciality"]
       this.basePrice = data[this.index - 1]["basePrice"]
+
+      this.playerImage.nativeElement.src = `../assets/img/${data[this.index - 1]["email"]}.jpg`
 
     })
 
@@ -83,21 +92,35 @@ export class DisplayScreenComponent implements OnInit {
       this.speciality = this.players[this.index - 1]["speciality"]
       this.basePrice = this.players[this.index - 1]["basePrice"]
 
+      this.playerImage.nativeElement.src = `../assets/img/${this.players[this.index - 1]["email"]}.jpg`
+      // this.playerImage.nativeElement.src = `../assets/img/${this.players[this.index - 1]["email"]}.jpg`
 
+
+    })
+
+
+    this.api.updateTimer().subscribe(() => {
+      this.timer = 15
+      this.startBid()
     })
   }
 
-  // startBid() {
-  //   this.newBid = false
-  //   this.interval = setInterval(() => {
-  //     if (this.timeLeft == 0) {
-  //       clearInterval(this.interval)
-  //     } else {
-  //       this.timeLeft--
-  //     }
-
-  //   }, 1000)
-  // }
+  checkImage(image) {
+    return this.http.get(`../assets/img/${image}.jpg`)
+  }
+  startBid() {
+    console.log('in start timer');
+    if (this.interval) {
+      clearInterval(this.interval)
+    }
+    this.interval = setInterval(() => {
+      if (this.timer > 0) {
+        this.timer--
+      } else {
+        clearInterval(this.interval)
+      }
+    }, 1000)
+  }
 
 
 }

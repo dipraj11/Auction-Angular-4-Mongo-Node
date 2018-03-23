@@ -131,4 +131,10 @@ export class AdminPanelComponent implements OnInit {
   resetBuzzer(){
     this.socket.emit('reset')
   }
+
+  startTimer(){
+    console.log('start timer in admin');
+    
+    this.socket.emit('timer')
+  }
 }

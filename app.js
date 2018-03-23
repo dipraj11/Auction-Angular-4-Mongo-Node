@@ -17,80 +17,6 @@ const LocalStrategy = require('passport-local');
 
 let buzzerFlag = true
 
-teams = [
-  {
-    teamname: 'demo',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'red'
-  },
-  {
-    teamname: 'demo1',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'yellow'
-  },
-  {
-    teamname: 'demo2',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'green'
-  },
-  {
-    teamname: 'demo3',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'blue'
-  },
-  {
-    teamname: 'demo4',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'indigo'
-  },
-  {
-    teamname: 'demo5',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'purple'
-  },
-  {
-    teamname: 'demo6',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'brown'
-  },
-  {
-    teamname: 'demo7',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'orange'
-  },
-  {
-    teamname: 'demo8',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'pink'
-  },
-  {
-    teamname: 'demo9',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'lilac'
-  },
-  {
-    teamname: 'demo10',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'violet'
-  },
-  {
-    teamname: 'demo11',
-    balance: 2000,
-    noOfPlayers: 0,
-    color: 'teal'
-  },
-]
 
 // // Get our API routes
 const login = require('./server/routes/login');
@@ -112,7 +38,7 @@ app.use(expressValidator());
 app.use(cookieParser());
 
 //Login Logic
-mongoose.connect('mongodb://35.192.54.134:4300/qcb-data')
+mongoose.connect('mongodb://35.192.54.134:4300/qcb-test')
 const db = mongoose.connection
 
 app.use(expressSession({
@@ -197,9 +123,9 @@ app.get('/get-all-players', (req, res, next) => {
   })
 })
 
-app.get('/get-all-players-r',(req, res, next) => {
+app.get('/get-all-players-r', (req, res, next) => {
   playersData = [];
-  Player.find({ sold:false}, { _id: false, captain: false, owner: false }, function (err, playersDetails) {
+  Player.find({ sold: false }, { _id: false, captain: false, owner: false }, function (err, playersDetails) {
     if (err) {
       console.log(err)
       res.send([]);
@@ -207,25 +133,25 @@ app.get('/get-all-players-r',(req, res, next) => {
     //console.log(playersDetails);
     playersData = playersDetails
     res.json(playersData);
-  })
+  }).sort({ sortOrder: 1 })
 })
 
 
 
 //for initial team data
 app.get('/get-team-details', (req, res, next) => {
-  console.log('Req',req.user.teamName)
+  console.log('Req', req.user.teamName)
   playersData = [];
   response = {};
   sum = 0;
-  Player.find({team:req.user.teamName},{_id:false,name:true,soldAmount:true,speciality:true,gender:true}, function(err,playersDetails) {
-    if(err){
+  Player.find({ team: req.user.teamName }, { _id: false, name: true, soldAmount: true, speciality: true, gender: true }, function (err, playersDetails) {
+    if (err) {
       console.log(err)
       res.send([]);
     }
     console.log(playersDetails);
     playersData = playersDetails
-    playersDetails.forEach((data)=>{
+    playersDetails.forEach((data) => {
       sum += data.soldAmount;
     })
     response.plyerDetails = playersData;
@@ -264,7 +190,7 @@ app.post('/sold-player', (req, res, next) => {
     Account.find({ teamName: req.body.teamName }, (err, data) => {
       data.balance = data.balance - req.body.bidAmount;
       Account.findOneAndUpdate({ teamName: req.body.teamName }, { $set: { balance: data.balance } }, (err, data) => {
-        res.send({message: 'done'});
+        res.send({ message: 'done' });
       })
     })
   })
@@ -335,6 +261,11 @@ io.on('connection', function (socket) {
   })
   socket.on('sold', function () {
     socket.broadcast.emit('refresh-all')
+  })
+  socket.on('timer', function () {
+    console.log('updating timer');
+
+    socket.broadcast.emit('update-timer')
   })
 });
 
