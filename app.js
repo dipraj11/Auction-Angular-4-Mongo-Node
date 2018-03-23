@@ -197,7 +197,18 @@ app.get('/get-all-players', (req, res, next) => {
   })
 })
 
-
+app.get('/get-all-players-r',(req, res, next) => {
+  playersData = [];
+  Player.find({ sold:false}, { _id: false, sortOrder: false, captain: false, owner: false }, function (err, playersDetails) {
+    if (err) {
+      console.log(err)
+      res.send([]);
+    }
+    //console.log(playersDetails);
+    playersData = playersDetails
+    res.json(playersData);
+  })
+})
 
 
 
