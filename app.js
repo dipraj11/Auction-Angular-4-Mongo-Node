@@ -156,6 +156,7 @@ app.set('trust proxy', 'loopback');
 app.use('/login', login);
 
 app.post('/register', function (req, res) {
+  console.log(req.body)
   let type = ''
   if (req.body.teamName == 'admin') {
     type = 'admin'

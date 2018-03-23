@@ -11,8 +11,8 @@ export class RegisterScreenComponent implements OnInit {
   registerForm: FormGroup
   teamName: FormControl
   password: FormControl
-  ownerName:FormControl
-  captainName:FormControl
+  ownerName: FormControl
+  captainName: FormControl
 
 
 
@@ -28,15 +28,17 @@ export class RegisterScreenComponent implements OnInit {
 
     this.registerForm = this.formBuilder.group({
       teamName: this.teamName,
-      password: this.password
+      password: this.password,
+      ownerName: this.ownerName,
+      captainName: this.captainName
     })
   }
 
   registerTeam() {
     console.log(this.registerForm.value)
-    this.apiCall.registerTeam(this.registerForm.value).subscribe((data)=>{
+    this.apiCall.registerTeam(this.registerForm.value).subscribe((data) => {
       console.log(data);
-      
+
     })
   }
 

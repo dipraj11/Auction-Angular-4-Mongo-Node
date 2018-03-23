@@ -56,6 +56,8 @@ export class ApiService {
     return this.http.get('/team-details')
   }
   sellPlayer(params) {
+    console.log(params);
+    
     return this.http.post('/sold-player', params)
   }
 } 
