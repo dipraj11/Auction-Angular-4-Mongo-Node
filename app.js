@@ -202,23 +202,28 @@ app.get('/get-all-players', (req, res, next) => {
 
 
 //for initial team data
-app.get('/get-team-players', (req, res, next) => {
+app.get('/get-team-details', (req, res, next) => {
+  console.log('Req',req.user.teamName)
   playersData = [];
-<<<<<<< HEAD
-  Player.find({},{_id:false,captain:true,owner:true,name:true,soldAmount:true,speciality:true}, function(err,playersDetails) {
+  response = {};
+  sum = 0;
+  Player.find({team:req.user.teamName},{_id:false,name:true,soldAmount:true,speciality:true,gender:true}, function(err,playersDetails) {
     if(err){
-=======
-  Player.find({}, { _id: false, sortOrder: false, captain: false, owner: false }, function (err, playersDetails) {
-    if (err) {
->>>>>>> d9804a4174dbe0cd044524cb6d4bb0efaf0603e1
       console.log(err)
       res.send([]);
     }
-    //console.log(playersDetails);
+    console.log(playersDetails);
     playersData = playersDetails
-    res.json(playersData);
+    playersDetails.forEach((data)=>{
+      sum += data.soldAmount;
+    })
+    response.plyerDetails = playersData;
+    response.balance = 2000 - sum
+    res.json(response);
   })
 })
+
+
 
 app.get('/get-player-name', (req, res, next) => {
   arrNames = [];
@@ -234,6 +239,8 @@ app.get('/get-player-name', (req, res, next) => {
     res.json(arrNames);
   })
 })
+
+
 
 
 app.post('/sold-player', (req, res, next) => {
