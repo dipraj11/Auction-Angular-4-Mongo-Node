@@ -47,7 +47,7 @@ export class OwnerPanelComponent implements OnInit {
 
     //to check status of buzzerButton
 
-    this.maximumBid = 2000 - ((2000 - this.currBalance) + (12) * 50)
+    this.maximumBid = 2000 - ((2000 - this.currBalance) + (12-0) * 50)
 
 
     this.api.updateBuzzerStatus().subscribe((data) => {
@@ -68,7 +68,7 @@ export class OwnerPanelComponent implements OnInit {
       this.api.getTeamPlayers().subscribe((playerDetails) => {
         this.players = playerDetails['plyerDetails']
         this.currBalance = playerDetails['balance']
-        this.maximumBid = (this.currBalance + (15 - (this.players.length - 1)) * 50)
+        this.maximumBid = 2000 - ((2000-this.currBalance) + (14 - (this.players.length)) * 50)
       })
     })
 

@@ -34,7 +34,7 @@ import {
 export class DisplayScreenComponent implements OnInit {
   interval
   highestBidder: any;
-  timer = 15
+  timer = 10
   activeState = 'inactive'
   players: any
   newBid: boolean
