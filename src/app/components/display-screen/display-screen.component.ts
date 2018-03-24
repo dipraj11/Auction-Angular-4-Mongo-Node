@@ -100,7 +100,7 @@ export class DisplayScreenComponent implements OnInit {
 
 
     this.api.updateTimer().subscribe(() => {
-      this.timer = 15
+      this.timer = 10
       this.startBid()
     })
   }
