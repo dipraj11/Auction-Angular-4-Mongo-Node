@@ -87,7 +87,7 @@ export class DisplayScreenComponent implements OnInit {
     this.api.refreshAllPlayerData().subscribe((data) => {
       this.index++;
       console.log(('in update display player'));
-
+      this.currBidder = data
       this.name = this.players[this.index - 1]["name"]
       this.speciality = this.players[this.index - 1]["speciality"]
       this.basePrice = this.players[this.index - 1]["basePrice"]
